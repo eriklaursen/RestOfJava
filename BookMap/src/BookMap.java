@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /** Generates Frequency maps of a large book
  * 
@@ -12,13 +14,29 @@ public class BookMap {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner console = new Scanner(System.in);
 		Scanner book = getBookScanner(console);
+		//create a map of words to occurrences
+		Map<String, Integer> bookMap = new TreeMap<String, Integer>();
 		
 		//open the book line by line
 		
 		while(book.hasNextLine()) {
 			String line = book.nextLine();
 			line = formatLine(line);
-			System.out.println(line);
+			//create a scanner of the current line
+			Scanner lineScan = new Scanner(line);
+			//read each word in the line
+			while(lineScan.hasNext()) {
+				String token = lineScan.next();
+				//Have we already seen this word?
+				if(bookMap.containsKey(token)) {
+					//if so add one to the existing occurrences
+					int value = bookMap.get(token);
+					bookMap.put(token,  value + 1);
+				} else {
+					//otherwise add it to the map with one occurrence
+					bookMap.put(token, 1);
+				}
+			}
 			
 		}
 	}
