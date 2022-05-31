@@ -17,10 +17,24 @@ public class BookMap {
 		
 		while(book.hasNextLine()) {
 			String line = book.nextLine();
+			line = formatLine(line);
 			System.out.println(line);
+			
 		}
-		System.out.println("hi");
-		
+	}
+	
+	public static String formatLine(String s) {
+		s = s.toLowerCase();
+		s = s.replace('.', ' ');
+		s = s.replace(',', ' ');
+		s = s.replace('!', ' ');
+		s = s.replace('?', ' ');
+		s = s.replace(':', ' ');
+		s = s.replace(';', ' ');
+		s = s.replace('"', ' ');
+		s = s.replace(')', ' ');
+		s = s.replace('(', ' ');
+		return s;
 	}
 
 	/** Prompts the user for a text file and returns a scanner
