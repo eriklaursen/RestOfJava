@@ -37,9 +37,38 @@ public class BookMap {
 					bookMap.put(token, 1);
 				}
 			}
+			lineScan.close();
 			
 		}
+		//keep prompting the user for a word until quit ... share the frequency
+		System.out.print("Enter a work (q to quit): ");
+		String word = console.nextLine();
+		
+		while(!word.equals("q")) {
+			Integer occurance = bookMap.get(word);
+			System.out.println(word + " : " + occurance);
+			System.out.print("Enter a work (q to quit): ");
+			word = console.nextLine();
+		}
+		
+		//share all words in alphabetical order that occur more then 200 times
+		for(String key :bookMap.keySet()) {
+			Integer occurance = bookMap.get(key);
+			if(occurance >= 200) {
+				System.out.println(key + " : " + occurance);
+			}
+		}
+		
+		
+		console.close();
+		book.close();
 	}
+	
+	/*
+	 
+	  hi
+	 
+	 */
 	
 	public static String formatLine(String s) {
 		s = s.toLowerCase();
@@ -64,7 +93,7 @@ public class BookMap {
 	public static Scanner getBookScanner(Scanner console) throws FileNotFoundException {
 		System.out.println("Give me a book file: ");
 		File f = new File(console.nextLine());
-		Scanner s = new Scanner(f);
+		Scanner s = new Scanner(f, "UTF-8");
 		return s;
 	}
 }
